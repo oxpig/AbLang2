@@ -29,4 +29,14 @@ setup(
         'rotary-embedding-torch',
         'numpy',
     ],
+    extras_require={
+        # Needed only for `align=True` and the `--align` option.  ANARCI is
+        # also needed, but it is deliberately absent here: the `anarci`
+        # package on PyPI is not an official release, so ANARCI must come
+        # from Bioconda (`bioconda::anarci`).
+        'align': ['pandas'],
+    },
+    entry_points={
+        'console_scripts': ['ablang2=ablang2.cli:main'],
+    },
 )

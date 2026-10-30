@@ -40,10 +40,14 @@ def load_model(model_to_use = "ablang2-paired", random_init = False, device = 'c
     
 def download_model(model_to_use = "ablang2-paired"):
     """
-    If not already downloaded, download model inside environment.
+    If not already downloaded, download the model.
+
+    Weights live in `model-weights-<model>/` inside the package, unless the
+    `ABLANG2_WEIGHTS_DIR` environment variable names another directory.
     """
 
-    local_model_folder = os.path.join(os.path.dirname(__file__), "model-weights-{}".format(model_to_use))
+    weights_dir = os.environ.get("ABLANG2_WEIGHTS_DIR") or os.path.dirname(__file__)
+    local_model_folder = os.path.join(weights_dir, "model-weights-{}".format(model_to_use))
     os.makedirs(local_model_folder, exist_ok = True)
 
     file_w_weights, file_model = list_of_models[model_to_use] # modify list of models
